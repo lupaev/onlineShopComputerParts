@@ -1,22 +1,32 @@
 package com.example.onlineshopcomputerparts.Entity;
 
+
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@MappedSuperclass
 public abstract class Product {
-  private int serialNumber;
-  private String manufacturer;
-  private double price;
-  private int quantity;
+
+  protected int serialNumber;
+  protected String manufacturer;
+  protected double price;
+  protected int quantity;
+
 
 }

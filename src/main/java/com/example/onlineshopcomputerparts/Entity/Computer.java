@@ -1,20 +1,28 @@
 package com.example.onlineshopcomputerparts.Entity;
 
 
+import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Table(name = "computer")
 @Entity
 public class Computer extends Product{
@@ -24,5 +32,6 @@ public class Computer extends Product{
   private Long id;
 
   private String form;
+
 
 }
