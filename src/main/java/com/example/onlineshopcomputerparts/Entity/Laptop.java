@@ -28,14 +28,4 @@ public class Laptop extends Product {
 
   private int dioganal;
 
-//  public Laptop(int serialNumber, String manufacturer, int price, int quantity, int dioganal) {
-//    super(serialNumber, manufacturer, price, quantity);
-//    this.dioganal = dioganal;
-//  }
-//
-//
-//  public Laptop() {
-//
-//  }
-
 }

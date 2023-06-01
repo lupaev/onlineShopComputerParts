@@ -1,6 +1,5 @@
 package com.example.onlineshopcomputerparts.Entity;
 
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,7 +16,7 @@ import lombok.ToString;
 public abstract class Product {
   private int serialNumber;
   private String manufacturer;
-  private int price;
+  private double price;
   private int quantity;
 
 }
