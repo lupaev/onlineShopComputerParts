@@ -1,7 +1,6 @@
 package com.example.onlineshopcomputerparts.Entity;
 
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +22,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Table(name = "computer")
 @Entity
-public class Computer extends Product{
+public class Computer extends Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

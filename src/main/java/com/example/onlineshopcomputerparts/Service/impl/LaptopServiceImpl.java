@@ -33,7 +33,7 @@ public class LaptopServiceImpl implements LaptopService {
       Double price, Integer quantity) {
     LaptopDTO laptopDTO = new LaptopDTO(id, serialNumber, manufacturer, price, quantity, diagonal);
     Laptop laptop = laptopRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     laptopMapper.updateLaptopFromDto(laptopDTO, laptop);
     laptopRepository.save(laptop);
     return laptopMapper.toDTO(laptop);
@@ -48,7 +48,7 @@ public class LaptopServiceImpl implements LaptopService {
   @Override
   public LaptopDTO findById(Long id) {
     Laptop laptop = laptopRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     return laptopMapper.toDTO(laptop);
   }
 }

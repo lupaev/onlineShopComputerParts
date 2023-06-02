@@ -120,7 +120,8 @@ public class HddController {
       ),
   })
   @GetMapping(value = "/{id}")
-  public ResponseEntity<HddDTO> findById(@PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
+  public ResponseEntity<HddDTO> findById(
+      @PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
     return ResponseEntity.ok(hddService.findById(id));
   }
 

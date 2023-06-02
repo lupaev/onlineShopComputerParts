@@ -33,7 +33,7 @@ public class HddServiceImpl implements HddService {
       Double price, Integer quantity) {
     HddDTO hddDTO = new HddDTO(id, serialNumber, manufacturer, price, quantity, volumeGb);
     Hdd hdd = hddRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     hddMapper.updateHddFromDto(hddDTO, hdd);
     hddRepository.save(hdd);
     return hddMapper.toDTO(hdd);
@@ -48,7 +48,7 @@ public class HddServiceImpl implements HddService {
   @Override
   public HddDTO findById(Long id) {
     Hdd hdd = hddRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     return hddMapper.toDTO(hdd);
   }
 }

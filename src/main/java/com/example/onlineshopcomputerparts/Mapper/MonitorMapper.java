@@ -13,7 +13,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface MonitorMapper {
 
   Monitor toEntity(MonitorDTO monitorDTO);
+
   MonitorDTO toDTO(Monitor monitor);
+
   void updateMonitorFromDto(MonitorDTO monitorDTO, @MappingTarget Monitor monitor);
 
   Collection<MonitorDTO> toDTOList(Collection<Monitor> list);

@@ -70,7 +70,7 @@ public class ComputerController {
   })
   @PatchMapping(value = "/patch/{id}")
   public ResponseEntity<ComputerDTO> change(@NotBlank(message = "Поле обязательное для заполнения")
-      @PathVariable(name = "id") Long id,
+  @PathVariable(name = "id") Long id,
       @Parameter(description = "Форм-фактор") @RequestParam(name = "form", required = false) String form,
       @Parameter(description = "серийный номер")
       @RequestParam(name = "serial number", required = false) Integer serialNumber,
@@ -120,7 +120,8 @@ public class ComputerController {
       ),
   })
   @GetMapping(value = "/{id}")
-  public ResponseEntity<ComputerDTO> findById(@PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
+  public ResponseEntity<ComputerDTO> findById(
+      @PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
     return ResponseEntity.ok(computerService.findById(id));
   }
 

@@ -80,7 +80,8 @@ public class MonitorController {
       @RequestParam(name = "price", required = false) Double price,
       @Parameter(description = "Количество товара на складе")
       @RequestParam(name = "quantity", required = false) Integer quantity) {
-    return ResponseEntity.ok(monitorService.patch(id, diagonal, serialNumber, manufacturer, price, quantity));
+    return ResponseEntity.ok(
+        monitorService.patch(id, diagonal, serialNumber, manufacturer, price, quantity));
   }
 
   @Operation(summary = "Все мониторы на складе магазина")
@@ -119,7 +120,8 @@ public class MonitorController {
       ),
   })
   @GetMapping(value = "/{id}")
-  public ResponseEntity<MonitorDTO> findById(@PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
+  public ResponseEntity<MonitorDTO> findById(
+      @PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
     return ResponseEntity.ok(monitorService.findById(id));
   }
 

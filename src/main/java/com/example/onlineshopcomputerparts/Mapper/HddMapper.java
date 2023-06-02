@@ -13,7 +13,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface HddMapper {
 
   Hdd toEntity(HddDTO hddDTO);
+
   HddDTO toDTO(Hdd hdd);
+
   void updateHddFromDto(HddDTO hddDTO, @MappingTarget Hdd hdd);
 
   Collection<HddDTO> toDTOList(Collection<Hdd> list);

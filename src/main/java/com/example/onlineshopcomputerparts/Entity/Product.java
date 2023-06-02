@@ -18,6 +18,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @MappedSuperclass
 public abstract class Product {
+
   protected Integer serialNumber;
   protected String manufacturer;
   protected Double price;

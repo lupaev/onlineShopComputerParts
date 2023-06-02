@@ -11,8 +11,11 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface ComputerMapper {
 
   Computer toEntity(ComputerDTO computerDTO);
+
   ComputerDTO toDTO(Computer computer);
+
   void updateComputerFromDto(ComputerDTO computerDTO, @MappingTarget Computer computer);
+
   Collection<ComputerDTO> toDTOList(Collection<Computer> list);
 
 }

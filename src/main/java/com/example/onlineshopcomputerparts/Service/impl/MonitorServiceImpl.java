@@ -30,9 +30,10 @@ public class MonitorServiceImpl implements MonitorService {
 
   public MonitorDTO patch(Long id, Integer diagonal, Integer serialNumber, String manufacturer,
       Double price, Integer quantity) {
-    MonitorDTO monitorDTO = new MonitorDTO(id, serialNumber, manufacturer, price, quantity, diagonal);
+    MonitorDTO monitorDTO = new MonitorDTO(id, serialNumber, manufacturer, price, quantity,
+        diagonal);
     Monitor monitor = monitorRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     monitorMapper.updateMonitorFromDto(monitorDTO, monitor);
     monitorRepository.save(monitor);
     return monitorMapper.toDTO(monitor);
@@ -47,7 +48,7 @@ public class MonitorServiceImpl implements MonitorService {
   @Override
   public MonitorDTO findById(Long id) {
     Monitor monitor = monitorRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     return monitorMapper.toDTO(monitor);
   }
 }

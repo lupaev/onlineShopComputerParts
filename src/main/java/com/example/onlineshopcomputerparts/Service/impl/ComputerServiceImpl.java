@@ -29,14 +29,14 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
 
-
   @Override
   public ComputerDTO patch(Long id, String form, Integer serialNumber, String manufacturer,
       Double price, Integer quantity) {
-    ComputerDTO computerDTO = new ComputerDTO(id, serialNumber, manufacturer, price, quantity, form);
+    ComputerDTO computerDTO = new ComputerDTO(id, serialNumber, manufacturer, price, quantity,
+        form);
     Computer computer = computerRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
-    computerMapper.updateComputerFromDto(computerDTO,computer);
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
+    computerMapper.updateComputerFromDto(computerDTO, computer);
     computerRepository.save(computer);
     return computerMapper.toDTO(computer);
   }
@@ -50,7 +50,7 @@ public class ComputerServiceImpl implements ComputerService {
   @Override
   public ComputerDTO findById(Long id) {
     Computer computer = computerRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     return computerMapper.toDTO(computer);
 
   }

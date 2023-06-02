@@ -16,6 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class MonitorDTO {
+
   @JsonIgnore
   Long id;
 

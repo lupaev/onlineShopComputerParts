@@ -20,7 +20,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Table(name = "monitor")
 @Entity
-public class Monitor extends Product{
+public class Monitor extends Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

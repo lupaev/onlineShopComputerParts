@@ -80,7 +80,8 @@ public class LaptopController {
       @RequestParam(name = "price", required = false) Double price,
       @Parameter(description = "Количество товара на складе")
       @RequestParam(name = "quantity", required = false) Integer quantity) {
-    return ResponseEntity.ok(laptopService.patch(id, diagonal, serialNumber, manufacturer, price, quantity));
+    return ResponseEntity.ok(
+        laptopService.patch(id, diagonal, serialNumber, manufacturer, price, quantity));
   }
 
   @Operation(summary = "Все ноутбуки на складе магазина")
@@ -119,7 +120,8 @@ public class LaptopController {
       ),
   })
   @GetMapping(value = "/{id}")
-  public ResponseEntity<LaptopDTO> findById(@PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
+  public ResponseEntity<LaptopDTO> findById(
+      @PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
     return ResponseEntity.ok(laptopService.findById(id));
   }
 

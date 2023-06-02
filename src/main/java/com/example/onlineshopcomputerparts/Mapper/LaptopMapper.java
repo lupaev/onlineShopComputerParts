@@ -13,8 +13,11 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface LaptopMapper {
 
   Laptop toEntity(LaptopDTO laptopDTO);
+
   LaptopDTO toDTO(Laptop laptop);
+
   void updateLaptopFromDto(LaptopDTO laptopDTO, @MappingTarget Laptop laptop);
+
   Collection<LaptopDTO> toDTOList(Collection<Laptop> list);
 
 }
