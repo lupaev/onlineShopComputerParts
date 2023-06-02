@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * DTO для Мониторов
+ */
+
 
 @Getter
 @Setter

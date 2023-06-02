@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для Мониторов
+ */
+
 @RestController
 @RequestMapping("/monitor")
 @Tag(name = "Мониторы")

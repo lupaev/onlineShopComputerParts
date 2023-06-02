@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Сущность Ноутбуков
+ */
+
 @Getter
 @Setter
 @ToString
