@@ -47,5 +47,13 @@ public class ComputerServiceImpl implements ComputerService {
     return new ArrayList<>(computerMapper.toDTOList(collection));
   }
 
+  @Override
+  public ComputerDTO findById(Long id) {
+    Computer computer = computerRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+    return computerMapper.toDTO(computer);
+
+  }
+
 
 }

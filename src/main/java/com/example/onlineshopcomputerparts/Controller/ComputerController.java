@@ -104,4 +104,24 @@ public class ComputerController {
     return ResponseEntity.ok(computerService.findAll());
   }
 
+  @Operation(summary = "Компьютер по идентификатору на складе магазина")
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "OK"
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          description = "bad request"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Internal Server Error"
+      ),
+  })
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<ComputerDTO> findById(@PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
+    return ResponseEntity.ok(computerService.findById(id));
+  }
+
 }

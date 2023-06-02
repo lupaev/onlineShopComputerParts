@@ -11,4 +11,5 @@ public interface HddService {
       Double price, Integer quantity);
   Collection<HddDTO> findAll();
 
+  HddDTO findById(Long id);
 }

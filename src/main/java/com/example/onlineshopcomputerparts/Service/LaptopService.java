@@ -9,4 +9,6 @@ public interface LaptopService {
   LaptopDTO patch(Long id, Integer diagonal, Integer serialNumber, String manufacturer,
       Double price, Integer quantity);
   Collection<LaptopDTO> findAll();
+
+  LaptopDTO findById(Long id);
 }

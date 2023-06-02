@@ -10,4 +10,6 @@ public interface MonitorService {
   MonitorDTO patch(Long id, Integer diagonal, Integer serialNumber, String manufacturer,
       Double price, Integer quantity);
   Collection<MonitorDTO> findAll();
+
+  MonitorDTO findById(Long id);
 }

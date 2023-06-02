@@ -103,4 +103,24 @@ public class LaptopController {
     return ResponseEntity.ok(laptopService.findAll());
   }
 
+  @Operation(summary = "Ноутбук по идентификатору на складе магазина")
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "OK"
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          description = "bad request"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Internal Server Error"
+      ),
+  })
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<LaptopDTO> findById(@PathVariable(name = "id") @Parameter(description = "Идентификатор") Long id) {
+    return ResponseEntity.ok(laptopService.findById(id));
+  }
+
 }

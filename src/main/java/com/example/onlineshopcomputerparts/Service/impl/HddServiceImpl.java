@@ -1,8 +1,6 @@
 package com.example.onlineshopcomputerparts.Service.impl;
 
-import com.example.onlineshopcomputerparts.DTO.ComputerDTO;
 import com.example.onlineshopcomputerparts.DTO.HddDTO;
-import com.example.onlineshopcomputerparts.Entity.Computer;
 import com.example.onlineshopcomputerparts.Entity.Hdd;
 import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.HddMapper;
@@ -45,5 +43,12 @@ public class HddServiceImpl implements HddService {
   public Collection<HddDTO> findAll() {
     Collection<Hdd> collection = hddRepository.findAll();
     return new ArrayList<>(hddMapper.toDTOList(collection));
+  }
+
+  @Override
+  public HddDTO findById(Long id) {
+    Hdd hdd = hddRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+    return hddMapper.toDTO(hdd);
   }
 }

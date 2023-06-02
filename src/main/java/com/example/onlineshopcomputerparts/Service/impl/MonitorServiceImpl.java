@@ -1,8 +1,6 @@
 package com.example.onlineshopcomputerparts.Service.impl;
 
-import com.example.onlineshopcomputerparts.DTO.LaptopDTO;
 import com.example.onlineshopcomputerparts.DTO.MonitorDTO;
-import com.example.onlineshopcomputerparts.Entity.Laptop;
 import com.example.onlineshopcomputerparts.Entity.Monitor;
 import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.MonitorMapper;
@@ -44,5 +42,12 @@ public class MonitorServiceImpl implements MonitorService {
   public Collection<MonitorDTO> findAll() {
     Collection<Monitor> collection = monitorRepository.findAll();
     return new ArrayList<>(monitorMapper.toDTOList(collection));
+  }
+
+  @Override
+  public MonitorDTO findById(Long id) {
+    Monitor monitor = monitorRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+    return monitorMapper.toDTO(monitor);
   }
 }

@@ -1,8 +1,6 @@
 package com.example.onlineshopcomputerparts.Service.impl;
 
-import com.example.onlineshopcomputerparts.DTO.HddDTO;
 import com.example.onlineshopcomputerparts.DTO.LaptopDTO;
-import com.example.onlineshopcomputerparts.Entity.Hdd;
 import com.example.onlineshopcomputerparts.Entity.Laptop;
 import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.LaptopMapper;
@@ -45,5 +43,12 @@ public class LaptopServiceImpl implements LaptopService {
   public Collection<LaptopDTO> findAll() {
     Collection<Laptop> collection = laptopRepository.findAll();
     return new ArrayList<>(laptopMapper.toDTOList(collection));
+  }
+
+  @Override
+  public LaptopDTO findById(Long id) {
+    Laptop laptop = laptopRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+    return laptopMapper.toDTO(laptop);
   }
 }

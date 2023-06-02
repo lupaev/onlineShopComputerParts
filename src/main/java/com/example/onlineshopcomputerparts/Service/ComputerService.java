@@ -9,4 +9,6 @@ public interface ComputerService {
   ComputerDTO patch(Long id, String form, Integer serialNumber, String manufacturer,
       Double price, Integer quantity);
   Collection<ComputerDTO> findAll();
+
+  ComputerDTO findById(Long id);
 }
