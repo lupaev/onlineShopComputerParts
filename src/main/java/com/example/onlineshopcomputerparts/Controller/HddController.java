@@ -1,8 +1,6 @@
 package com.example.onlineshopcomputerparts.Controller;
 
-import com.example.onlineshopcomputerparts.DTO.ComputerDTO;
 import com.example.onlineshopcomputerparts.DTO.HddDTO;
-import com.example.onlineshopcomputerparts.Service.ComputerService;
 import com.example.onlineshopcomputerparts.Service.HddService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

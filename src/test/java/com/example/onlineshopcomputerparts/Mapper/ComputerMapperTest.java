@@ -13,16 +13,6 @@ class ComputerMapperTest {
 
   @Test
   void given_customer_entity_mapper_should_map_all_fields_to_customer_dto() {
-//    Customer customer = new Customer();
-//    customer.setLogin("Login");
-//    customer.setPassword("Password");
-//    customer.setId(10l);
-//    customer.setUuid("UUID");
-//    CustomerDTO customerDTO = customerMapper.toDto(customer);
-//    assertThat(customerDTO.getId()).isEqualTo(10l);
-//    assertThat(customerDTO.getUuid()).isEqualTo("UUID");
-//    assertThat(customerDTO.getLogin()).isEqualTo("Login");
-//    assertThat(customerDTO.getPassword()).isEqualTo("Password");
     Computer computer = new Computer();
     computer.setId(1L);
     computer.setPrice(10);

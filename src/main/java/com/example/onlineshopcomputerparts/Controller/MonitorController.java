@@ -1,8 +1,6 @@
 package com.example.onlineshopcomputerparts.Controller;
 
-import com.example.onlineshopcomputerparts.DTO.LaptopDTO;
 import com.example.onlineshopcomputerparts.DTO.MonitorDTO;
-import com.example.onlineshopcomputerparts.Service.LaptopService;
 import com.example.onlineshopcomputerparts.Service.MonitorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

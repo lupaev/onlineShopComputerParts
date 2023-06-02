@@ -1,12 +1,14 @@
 package com.example.onlineshopcomputerparts.Service;
 
 import com.example.onlineshopcomputerparts.DTO.ComputerDTO;
-import com.example.onlineshopcomputerparts.Entity.Computer;
-import org.springframework.stereotype.Service;
+
 
 
 public interface ComputerService {
 
-  ComputerDTO add(ComputerDTO computer);
+  ComputerDTO add(ComputerDTO computerDTO);
 
+
+//  ComputerDTO change(Long id, String form, int serialNumber, String manufacturer,
+//      double price, int quantity);
 }
