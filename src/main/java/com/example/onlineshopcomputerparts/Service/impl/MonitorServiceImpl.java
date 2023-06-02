@@ -1,14 +1,11 @@
 package com.example.onlineshopcomputerparts.Service.impl;
 
-import com.example.onlineshopcomputerparts.DTO.LaptopDTO;
 import com.example.onlineshopcomputerparts.DTO.MonitorDTO;
-import com.example.onlineshopcomputerparts.Entity.Laptop;
 import com.example.onlineshopcomputerparts.Entity.Monitor;
 import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.MonitorMapper;
 import com.example.onlineshopcomputerparts.Repository.MonitorRepository;
 import com.example.onlineshopcomputerparts.Service.MonitorService;
-import liquibase.pro.packaged.M;
 import org.springframework.stereotype.Service;
 
 @Service

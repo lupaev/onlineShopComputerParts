@@ -1,6 +1,5 @@
 package com.example.onlineshopcomputerparts.Controller;
 
-import com.example.onlineshopcomputerparts.DTO.HddDTO;
 import com.example.onlineshopcomputerparts.DTO.LaptopDTO;
 import com.example.onlineshopcomputerparts.Service.LaptopService;
 import io.swagger.v3.oas.annotations.Operation;

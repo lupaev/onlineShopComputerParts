@@ -1,7 +1,6 @@
 package com.example.onlineshopcomputerparts.Controller;
 
 import com.example.onlineshopcomputerparts.DTO.ComputerDTO;
-import com.example.onlineshopcomputerparts.Entity.Computer;
 import com.example.onlineshopcomputerparts.Service.ComputerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -51,25 +50,6 @@ public class ComputerController {
     return ResponseEntity.ok(computerService.add(computer));
   }
 
-//  @Operation(summary = "Изменение данных компьютера на складе магазина")
-//  @ApiResponses({
-//      @ApiResponse(
-//          responseCode = "200",
-//          description = "OK"
-//      ),
-//      @ApiResponse(
-//          responseCode = "400",
-//          description = "bad request"
-//      ),
-//      @ApiResponse(
-//          responseCode = "500",
-//          description = "Internal Server Error"
-//      ),
-//  })
-//  @PatchMapping(value = "/change/{id}")
-//  public ResponseEntity<ComputerDTO> patch(@PathVariable Long id, ComputerDTO computerDTO) {
-//    return ResponseEntity.ok(computerService.patch(id, computerDTO));
-//  }
 
   @Operation(summary = "Изменение данных компьютера на складе магазина")
   @ApiResponses({
