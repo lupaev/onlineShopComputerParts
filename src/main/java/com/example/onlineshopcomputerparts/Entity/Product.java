@@ -23,8 +23,8 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @MappedSuperclass
 public abstract class Product {
-  protected int serialNumber;
+  protected Integer serialNumber;
   protected String manufacturer;
-  protected double price;
-  protected int quantity;
+  protected Double price;
+  protected Integer quantity;
 }

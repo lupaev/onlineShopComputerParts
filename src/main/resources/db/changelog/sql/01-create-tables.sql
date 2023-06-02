@@ -21,7 +21,7 @@ create table hdd
 create table monitor
 (
     id BIGSERIAL PRIMARY KEY,
-    dioganal INTEGER NOT NULL ,
+    diagonal INTEGER NOT NULL ,
     serial_number INTEGER NOT NULL ,
     manufacturer VARCHAR NOT NULL ,
     price FLOAT NOT NULL ,
@@ -31,7 +31,7 @@ create table monitor
 create table laptop
 (
     id BIGSERIAL PRIMARY KEY,
-    dioganal INTEGER,
+    diagonal INTEGER,
     serial_number INTEGER,
     manufacturer VARCHAR,
     price FLOAT,

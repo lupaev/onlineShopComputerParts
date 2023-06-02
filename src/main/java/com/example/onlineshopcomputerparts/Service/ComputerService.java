@@ -9,6 +9,6 @@ public interface ComputerService {
   ComputerDTO add(ComputerDTO computerDTO);
 
 
-//  ComputerDTO change(Long id, String form, int serialNumber, String manufacturer,
-//      double price, int quantity);
+  ComputerDTO patch(Long id, String form, Integer serialNumber, String manufacturer,
+      Double price, Integer quantity);
 }

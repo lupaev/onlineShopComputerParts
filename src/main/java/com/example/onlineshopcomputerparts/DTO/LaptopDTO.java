@@ -21,20 +21,15 @@ public class LaptopDTO {
 
   @JsonIgnore
   Long id;
-  @NotNull
-  @NotBlank
-  private int serialNumber;
-  @NotNull
-  @NotBlank
+
+  private Integer serialNumber;
+
   private String manufacturer;
-  @NotNull
-  @NotBlank
-  private double price;
-  @NotNull
-  @NotBlank
-  private int quantity;
-  @NotNull
-  @NotBlank
-  private int dioganal;
+
+  private Double price;
+
+  private Integer quantity;
+
+  private Integer diagonal;
 
 }

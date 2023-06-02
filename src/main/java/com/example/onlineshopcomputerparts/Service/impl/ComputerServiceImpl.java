@@ -27,18 +27,26 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
 //  @Override
-//  public ComputerDTO change(Long id, String form, int serialNumber, String manufacturer,
-//      double price, int quantity) {
+//  public ComputerDTO patch(Long id, ComputerDTO computerDTO) {
 //    Computer computer = computerRepository.findById(id)
 //        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
-//    computer.setForm(form);
-//    computer.setQuantity(quantity);
-//    computer.setSerialNumber(serialNumber);
-//    computer.setManufacturer(manufacturer);
-//    computer.setPrice(price);
+//    computerMapper.updateComputerFromDto(computerDTO,computer);
 //    computerRepository.save(computer);
 //    return computerMapper.toDTO(computer);
+//
+//
 //  }
+
+  @Override
+  public ComputerDTO patch(Long id, String form, Integer serialNumber, String manufacturer,
+      Double price, Integer quantity) {
+    ComputerDTO computerDTO = new ComputerDTO(id, serialNumber, manufacturer, price, quantity, form);
+    Computer computer = computerRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
+    computerMapper.updateComputerFromDto(computerDTO,computer);
+    computerRepository.save(computer);
+    return computerMapper.toDTO(computer);
+  }
 
 
 }

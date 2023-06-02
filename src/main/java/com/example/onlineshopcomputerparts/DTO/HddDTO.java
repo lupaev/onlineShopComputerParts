@@ -20,20 +20,15 @@ public class HddDTO {
 
   @JsonIgnore
   Long id;
-  @NotNull
-  @NotBlank
-  private int serialNumber;
-  @NotNull
-  @NotBlank
+
+  private Integer serialNumber;
+
   private String manufacturer;
-  @NotNull
-  @NotBlank
-  private double price;
-  @NotNull
-  @NotBlank
-  private int quantity;
-  @NotNull
-  @NotBlank
-  private int VolumeGb;
+
+  private Double price;
+
+  private Integer quantity;
+
+  private Integer volumeGb;
 
 }
