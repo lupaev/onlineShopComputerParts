@@ -1,5 +1,6 @@
 package com.example.onlineshopcomputerparts.Controller;
 
+import com.example.onlineshopcomputerparts.DTO.ComputerDTO;
 import com.example.onlineshopcomputerparts.DTO.HddDTO;
 import com.example.onlineshopcomputerparts.Service.HddService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,9 +9,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.IOException;
+import java.util.Collection;
 import javax.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,6 +82,26 @@ public class HddController {
       @RequestParam(name = "quantity", required = false) Integer quantity) {
     return ResponseEntity.ok(hddService.patch(id, volumeGb, serialNumber, manufacturer,
         price, quantity));
+  }
+
+  @Operation(summary = "Все жесткие диски на складе магазина")
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "OK"
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          description = "bad request"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Internal Server Error"
+      ),
+  })
+  @GetMapping(value = "/all")
+  public ResponseEntity<Collection<HddDTO>> findAll() {
+    return ResponseEntity.ok(hddService.findAll());
   }
 
 }

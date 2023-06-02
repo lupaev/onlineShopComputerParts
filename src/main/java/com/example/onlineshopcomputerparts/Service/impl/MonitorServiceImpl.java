@@ -1,11 +1,15 @@
 package com.example.onlineshopcomputerparts.Service.impl;
 
+import com.example.onlineshopcomputerparts.DTO.LaptopDTO;
 import com.example.onlineshopcomputerparts.DTO.MonitorDTO;
+import com.example.onlineshopcomputerparts.Entity.Laptop;
 import com.example.onlineshopcomputerparts.Entity.Monitor;
 import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.MonitorMapper;
 import com.example.onlineshopcomputerparts.Repository.MonitorRepository;
 import com.example.onlineshopcomputerparts.Service.MonitorService;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,5 +38,11 @@ public class MonitorServiceImpl implements MonitorService {
     monitorMapper.updateMonitorFromDto(monitorDTO, monitor);
     monitorRepository.save(monitor);
     return monitorMapper.toDTO(monitor);
+  }
+
+  @Override
+  public Collection<MonitorDTO> findAll() {
+    Collection<Monitor> collection = monitorRepository.findAll();
+    return new ArrayList<>(monitorMapper.toDTOList(collection));
   }
 }

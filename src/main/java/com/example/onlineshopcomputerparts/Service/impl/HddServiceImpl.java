@@ -8,6 +8,8 @@ import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.HddMapper;
 import com.example.onlineshopcomputerparts.Repository.HddRepository;
 import com.example.onlineshopcomputerparts.Service.HddService;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,5 +39,11 @@ public class HddServiceImpl implements HddService {
     hddMapper.updateHddFromDto(hddDTO, hdd);
     hddRepository.save(hdd);
     return hddMapper.toDTO(hdd);
+  }
+
+  @Override
+  public Collection<HddDTO> findAll() {
+    Collection<Hdd> collection = hddRepository.findAll();
+    return new ArrayList<>(hddMapper.toDTOList(collection));
   }
 }

@@ -6,6 +6,8 @@ import com.example.onlineshopcomputerparts.Exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.Mapper.ComputerMapper;
 import com.example.onlineshopcomputerparts.Repository.ComputerRepository;
 import com.example.onlineshopcomputerparts.Service.ComputerService;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,16 +28,7 @@ public class ComputerServiceImpl implements ComputerService {
     return computerDTO;
   }
 
-//  @Override
-//  public ComputerDTO patch(Long id, ComputerDTO computerDTO) {
-//    Computer computer = computerRepository.findById(id)
-//        .orElseThrow(() -> new ElemNotFound("Product not found on :: "+ id));
-//    computerMapper.updateComputerFromDto(computerDTO,computer);
-//    computerRepository.save(computer);
-//    return computerMapper.toDTO(computer);
-//
-//
-//  }
+
 
   @Override
   public ComputerDTO patch(Long id, String form, Integer serialNumber, String manufacturer,
@@ -46,6 +39,12 @@ public class ComputerServiceImpl implements ComputerService {
     computerMapper.updateComputerFromDto(computerDTO,computer);
     computerRepository.save(computer);
     return computerMapper.toDTO(computer);
+  }
+
+  @Override
+  public Collection<ComputerDTO> findAll() {
+    Collection<Computer> collection = computerRepository.findAll();
+    return new ArrayList<>(computerMapper.toDTOList(collection));
   }
 
 
