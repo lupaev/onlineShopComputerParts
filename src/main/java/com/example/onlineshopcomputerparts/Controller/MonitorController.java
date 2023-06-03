@@ -73,7 +73,7 @@ public class MonitorController {
       ),
   })
   @PatchMapping(value = "/patch/{id}")
-  public ResponseEntity<MonitorDTO> change(@NotBlank(message = "Поле обязательное для заполнения")
+  public ResponseEntity<MonitorDTO> patch(@NotBlank(message = "Поле обязательное для заполнения")
   @PathVariable(name = "id") Long id,
       @Parameter(description = "Диагональ") @RequestParam(name = "diagonal", required = false) Integer diagonal,
       @Parameter(description = "серийный номер")

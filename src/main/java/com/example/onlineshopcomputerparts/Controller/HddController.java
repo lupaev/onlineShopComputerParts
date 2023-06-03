@@ -74,7 +74,7 @@ public class HddController {
       ),
   })
   @PatchMapping(value = "/patch/{id}")
-  public ResponseEntity<HddDTO> change(@NotBlank(message = "Поле обязательное для заполнения")
+  public ResponseEntity<HddDTO> patch(@NotBlank(message = "Поле обязательное для заполнения")
   @PathVariable(name = "id") Long id,
       @Parameter(description = "Объем в ГБ") @RequestParam(name = "VolumeGb", required = false) Integer volumeGb,
       @Parameter(description = "серийный номер")

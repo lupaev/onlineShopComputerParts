@@ -73,7 +73,7 @@ public class ComputerController {
       ),
   })
   @PatchMapping(value = "/patch/{id}")
-  public ResponseEntity<ComputerDTO> change(@NotBlank(message = "Поле обязательное для заполнения")
+  public ResponseEntity<ComputerDTO> patch(@NotBlank(message = "Поле обязательное для заполнения")
   @PathVariable(name = "id") Long id,
       @Parameter(description = "Форм-фактор") @RequestParam(name = "form", required = false) String form,
       @Parameter(description = "серийный номер")

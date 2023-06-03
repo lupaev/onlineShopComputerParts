@@ -73,7 +73,7 @@ public class LaptopController {
       ),
   })
   @PatchMapping(value = "/patch/{id}")
-  public ResponseEntity<LaptopDTO> change(@NotBlank(message = "Поле обязательное для заполнения")
+  public ResponseEntity<LaptopDTO> patch(@NotBlank(message = "Поле обязательное для заполнения")
   @PathVariable(name = "id") Long id,
       @Parameter(description = "Диагональ") @RequestParam(name = "diagonal", required = false) Integer diagonal,
       @Parameter(description = "серийный номер")
