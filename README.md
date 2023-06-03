@@ -52,3 +52,9 @@
 
 ``mvn install && java -jar target/*.jar``
 
+
+#### Данные БД
+- Логин: user
+- пароль: 1234
+
+
