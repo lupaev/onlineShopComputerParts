@@ -41,7 +41,7 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toDTOPositiv() {
+  void toDTOPositive() {
     assertNotNull(monitor);
     assertNotNull(monitorDTO);
     MonitorDTO dto = monitorMapper.toDTO(monitor);
@@ -55,7 +55,7 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toDTONegativ() {
+  void toDTONegative() {
     assertNotNull(monitor);
     assertNotNull(monitorDTO);
     MonitorDTO dto = monitorMapper.toDTO(monitor);
@@ -69,7 +69,7 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toEntityPositiv() {
+  void toEntityPositive() {
     assertNotNull(monitor);
     assertNotNull(monitorDTO);
     Monitor l = monitorMapper.toEntity(monitorDTO);
@@ -83,7 +83,7 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toEntityNegativ() {
+  void toEntityNegative() {
     assertNotNull(monitor);
     assertNotNull(monitorDTO);
     Monitor l = monitorMapper.toEntity(monitorDTO);
@@ -97,7 +97,7 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toListDTOPositiv() {
+  void toListDTOPositive() {
     assertNotNull(monitor);
     Collection<MonitorDTO> dto = monitorMapper.toDTOList(List.of(monitor));
     assertNotNull(dto);
@@ -105,7 +105,7 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toListDTONegativ() {
+  void toListDTONegative() {
     assertNotNull(monitor);
     Collection<MonitorDTO> dto = monitorMapper.toDTOList(List.of(monitor));
     assertNotNull(dto);

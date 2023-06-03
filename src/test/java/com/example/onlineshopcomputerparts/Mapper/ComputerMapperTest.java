@@ -42,7 +42,7 @@ class ComputerMapperTest {
   }
 
   @Test
-  void toDTOPositiv() {
+  void toDTOPositive() {
     assertNotNull(computer);
     assertNotNull(computerDTO);
     ComputerDTO dto = computerMapper.toDTO(computer);
@@ -56,7 +56,7 @@ class ComputerMapperTest {
   }
 
   @Test
-  void toDTONegativ() {
+  void toDTONegative() {
     assertNotNull(computer);
     assertNotNull(computerDTO);
     ComputerDTO dto = computerMapper.toDTO(computer);
@@ -70,7 +70,7 @@ class ComputerMapperTest {
   }
 
   @Test
-  void toEntityPositiv() {
+  void toEntityPositive() {
     assertNotNull(computer);
     assertNotNull(computerDTO);
     Computer comp = computerMapper.toEntity(computerDTO);
@@ -84,7 +84,7 @@ class ComputerMapperTest {
   }
 
   @Test
-  void toEntityNegativ() {
+  void toEntityNegative() {
     assertNotNull(computer);
     assertNotNull(computerDTO);
     Computer comp = computerMapper.toEntity(computerDTO);
@@ -98,7 +98,7 @@ class ComputerMapperTest {
   }
 
   @Test
-  void toListDTOPositiv() {
+  void toListDTOPositive() {
     assertNotNull(computer);
     Collection<ComputerDTO> dto = computerMapper.toDTOList(List.of(computer));
     assertNotNull(dto);
@@ -106,7 +106,7 @@ class ComputerMapperTest {
   }
 
   @Test
-  void toListDTONegativ() {
+  void toListDTONegative() {
     assertNotNull(computer);
     Collection<ComputerDTO> dto = computerMapper.toDTOList(List.of(computer));
     assertNotNull(dto);

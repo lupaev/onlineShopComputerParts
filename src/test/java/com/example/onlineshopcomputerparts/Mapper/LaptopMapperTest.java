@@ -41,7 +41,7 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toDTOPositiv() {
+  void toDTOPositive() {
     assertNotNull(laptop);
     assertNotNull(laptopDTO);
     LaptopDTO dto = laptopMapper.toDTO(laptop);
@@ -55,7 +55,7 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toDTONegativ() {
+  void toDTONegative() {
     assertNotNull(laptop);
     assertNotNull(laptopDTO);
     LaptopDTO dto = laptopMapper.toDTO(laptop);
@@ -69,7 +69,7 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toEntityPositiv() {
+  void toEntityPositive() {
     assertNotNull(laptop);
     assertNotNull(laptopDTO);
     Laptop l = laptopMapper.toEntity(laptopDTO);
@@ -83,7 +83,7 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toEntityNegativ() {
+  void toEntityNegative() {
     assertNotNull(laptop);
     assertNotNull(laptopDTO);
     Laptop l = laptopMapper.toEntity(laptopDTO);
@@ -97,7 +97,7 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toListDTOPositiv() {
+  void toListDTOPositive() {
     assertNotNull(laptop);
     Collection<LaptopDTO> dto = laptopMapper.toDTOList(List.of(laptop));
     assertNotNull(dto);
@@ -105,7 +105,7 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toListDTONegativ() {
+  void toListDTONegative() {
     assertNotNull(laptop);
     Collection<LaptopDTO> dto = laptopMapper.toDTOList(List.of(laptop));
     assertNotNull(dto);

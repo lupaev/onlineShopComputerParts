@@ -41,7 +41,7 @@ class HddMapperTest {
   }
 
   @Test
-  void toDTOPositiv() {
+  void toDTOPositive() {
     assertNotNull(hdd);
     assertNotNull(hddDTO);
     HddDTO dto = hddMapper.toDTO(hdd);
@@ -55,7 +55,7 @@ class HddMapperTest {
   }
 
   @Test
-  void toDTONegativ() {
+  void toDTONegative() {
     assertNotNull(hdd);
     assertNotNull(hddDTO);
     HddDTO dto = hddMapper.toDTO(hdd);
@@ -69,7 +69,7 @@ class HddMapperTest {
   }
 
   @Test
-  void toEntityPositiv() {
+  void toEntityPositive() {
     assertNotNull(hdd);
     assertNotNull(hddDTO);
     Hdd hdd1 = hddMapper.toEntity(hddDTO);
@@ -83,7 +83,7 @@ class HddMapperTest {
   }
 
   @Test
-  void toEntityNegativ() {
+  void toEntityNegative() {
     assertNotNull(hdd);
     assertNotNull(hddDTO);
     Hdd hdd1 = hddMapper.toEntity(hddDTO);
@@ -97,7 +97,7 @@ class HddMapperTest {
   }
 
   @Test
-  void toListDTOPositiv() {
+  void toListDTOPositive() {
     assertNotNull(hdd);
     Collection<HddDTO> dto = hddMapper.toDTOList(List.of(hdd));
     assertNotNull(dto);
@@ -105,7 +105,7 @@ class HddMapperTest {
   }
 
   @Test
-  void toListDTONegativ() {
+  void toListDTONegative() {
     assertNotNull(hdd);
     Collection<HddDTO> dto = hddMapper.toDTOList(List.of(hdd));
     assertNotNull(dto);
