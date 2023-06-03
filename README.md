@@ -42,20 +42,13 @@
 
 ![image](image/maven_version.png)
 
-#
+### Скачивание приложения и и его запуск
 
-### Скачивание приложения и компиляция
+```git clone https://github.com/lupaev/onlineShopComputerParts.git && cd onlineShopComputerParts && mvn spring-boot:run```
 
-```git clone https://github.com/lupaev/onlineShopComputerParts.git && cd onlineShopComputerParts && mvn install```
+#### Api через swagger: http://localhost:8080/swagger-ui/index.html)
 
+#### Для запуска приложения через JAR файл необходимо выполнить следующую команду
 
+``mvn install && java -jar target/*.jar``
 
-
-
-
-
-
-[//]: # (Api через swagger: http://localhost:8080/swagger-ui/index.html)
-
-[//]: # ()
-[//]: # (PostgreSQL работает на стандартном порте 5432)
