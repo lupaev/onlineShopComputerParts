@@ -1,12 +1,22 @@
 # Тестовое задание EasyBot
+
+___
+
 ### Backend для магазина торгующего компьютерами и комплектующими
+
+___
+
 ### Функционал:
+
 - Добавление товара;
 - Редактирование товара;
 - Просмотр всех существующих товаров по типу;
 - Просмотр товара по идентификатору.
 
+___
+
 ### Используемые технологии:
+
 - Java 11
 - Spring 5.3.27
 - Spring Boot 2.7.12
@@ -16,12 +26,14 @@
 - Lombok 1.18.28
 - Maven
 
+___
+
 ### Установка и запуск приложения
 
-#### Для запуска приложения предварительно необходимо установить Java и Maven 
-
+#### Для запуска приложения предварительно необходимо установить Java и Maven
 
 ### Linux
+
 - Для Ubuntu/Mint команда установки
 
 ``sudo apt install openjdk-11-jdk maven``
@@ -42,7 +54,7 @@
 
 ![image](image/maven_version.png)
 
-### Скачивание приложения и и его запуск
+### Скачивание приложения и его запуск
 
 ```git clone https://github.com/lupaev/onlineShopComputerParts.git && cd onlineShopComputerParts && mvn spring-boot:run```
 
@@ -51,9 +63,27 @@
 #### Для запуска приложения через JAR файл необходимо выполнить следующую команду
 
 ``mvn install && java -jar target/*.jar``
+___
 
+## Запуск приложения через Docker
+
+### Предварительно установить Docker
+
+``https://www.docker.com/``
+
+### Скачивание приложения и его запуск
+
+```git clone https://github.com/lupaev/onlineShopComputerParts.git && cd onlineShopComputerParts && mvn install && docker build -t app:v1 . && docker run --rm -d -p 8080:8080 app:v1```
+
+### Для повторного запуска выполнить команду в консоли
+``docker run --rm -d -p 8080:8080 app:v1``
+
+#### Api через swagger: http://localhost:8080/swagger-ui/index.html)
+
+___
 
 #### Данные БД
+
 - Логин: user
 - пароль: 1234
 
