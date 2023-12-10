@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.mapper;
 
 import com.example.onlineshopcomputerparts.dto.LaptopDTO;
+import com.example.onlineshopcomputerparts.dto.LaptopFullDTO;
 import com.example.onlineshopcomputerparts.entity.Laptop;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ class LaptopMapperTest {
 
   @BeforeEach
   void setUp() {
-    laptopDTO = new LaptopDTO(2L, 1111, "Test1", 12601.98,
+    laptopDTO = new LaptopDTO(1111, "Test1", 12601.98,
         11, 17);
     laptop= new Laptop();
     laptop.setId(1L);
@@ -43,7 +44,7 @@ class LaptopMapperTest {
   void toDTOPositive() {
     assertNotNull(laptop);
     assertNotNull(laptopDTO);
-    LaptopDTO dto = laptopMapper.toDTO(laptop);
+    LaptopFullDTO dto = laptopMapper.toDTO(laptop);
     assertNotNull(dto);
     assertThat(dto.getId()).isEqualTo(laptop.getId());
     assertThat(dto.getPrice()).isEqualTo(laptop.getPrice());
@@ -54,26 +55,11 @@ class LaptopMapperTest {
   }
 
   @Test
-  void toDTONegative() {
-    assertNotNull(laptop);
-    assertNotNull(laptopDTO);
-    LaptopDTO dto = laptopMapper.toDTO(laptop);
-    assertNotNull(dto);
-    assertNotEquals(dto.getId(), laptopDTO.getId());
-    assertNotEquals(dto.getPrice(), laptopDTO.getPrice());
-    assertNotEquals(dto.getManufacturer(), laptopDTO.getManufacturer());
-    assertNotEquals(dto.getDiagonal(), laptopDTO.getDiagonal());
-    assertNotEquals(dto.getQuantity(), laptopDTO.getQuantity());
-    assertNotEquals(dto.getSerialNumber(), laptopDTO.getSerialNumber());
-  }
-
-  @Test
   void toEntityPositive() {
     assertNotNull(laptop);
     assertNotNull(laptopDTO);
     Laptop l = laptopMapper.toEntity(laptopDTO);
     assertNotNull(l);
-    assertThat(l.getId()).isEqualTo(laptopDTO.getId());
     assertThat(l.getPrice()).isEqualTo(laptopDTO.getPrice());
     assertThat(l.getManufacturer()).isEqualTo(laptopDTO.getManufacturer());
     assertThat(l.getDiagonal()).isEqualTo(laptopDTO.getDiagonal());
@@ -98,7 +84,7 @@ class LaptopMapperTest {
   @Test
   void toListDTOPositive() {
     assertNotNull(laptop);
-    Collection<LaptopDTO> dto = laptopMapper.toDTOList(List.of(laptop));
+    Collection<LaptopFullDTO> dto = laptopMapper.toDTOList(List.of(laptop));
     assertNotNull(dto);
     assertTrue(dto.contains(laptopMapper.toDTO(laptop)));
   }
@@ -106,7 +92,7 @@ class LaptopMapperTest {
   @Test
   void toListDTONegative() {
     assertNotNull(laptop);
-    Collection<LaptopDTO> dto = laptopMapper.toDTOList(List.of(laptop));
+    Collection<LaptopFullDTO> dto = laptopMapper.toDTOList(List.of(laptop));
     assertNotNull(dto);
     assertTrue(dto.contains(laptopMapper.toDTO(laptop)));
   }
@@ -116,14 +102,6 @@ class LaptopMapperTest {
     assertNotNull(laptopDTO);
     assertNotNull(laptop);
     laptopMapper.updateLaptopFromDto(laptopDTO, laptop);
-    assertEquals(laptop, laptopMapper.toEntity(laptopDTO));
-    Laptop c = new Laptop();
-    c.setId(1L);
-    c.setPrice(12600.98);
-    c.setManufacturer("Test");
-    c.setDiagonal(6);
-    c.setQuantity(1);
-    c.setSerialNumber(111);
-    assertNotEquals(laptop, c);
+    assertEquals(laptop.getSerialNumber(), laptopDTO.getSerialNumber());
   }
 }

@@ -1,6 +1,8 @@
 package com.example.onlineshopcomputerparts.service;
 
 import com.example.onlineshopcomputerparts.dto.HddDTO;
+import com.example.onlineshopcomputerparts.dto.HddFullDTO;
+
 import java.util.Collection;
 
 /**
@@ -12,21 +14,20 @@ public interface HddService {
   /**
    * Добавление в магазин Жесткого диска
    */
-  HddDTO add(HddDTO hddDTO);
+  HddFullDTO add(HddDTO hddDTO);
 
   /**
    * Изменение данных Жесткого диска
    */
-  HddDTO patch(Long id, Integer volumeGb, Integer serialNumber, String manufacturer,
-      Double price, Integer quantity);
+  HddFullDTO patch(Long id, HddDTO hddDTO);
 
   /**
    * Данные о всех Жестких дисках в магазине
    */
-  Collection<HddDTO> findAll();
+  Collection<HddFullDTO> findAll();
 
   /**
    * Поиск Жесткого диска по идентификатору
    */
-  HddDTO findById(Long id);
+  HddFullDTO findById(Long id);
 }

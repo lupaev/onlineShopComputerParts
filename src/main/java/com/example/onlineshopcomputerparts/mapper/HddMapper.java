@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.mapper;
 
 import com.example.onlineshopcomputerparts.dto.HddDTO;
+import com.example.onlineshopcomputerparts.dto.HddFullDTO;
 import com.example.onlineshopcomputerparts.entity.Hdd;
 import java.util.Collection;
 import org.mapstruct.Mapper;
@@ -17,10 +18,10 @@ public interface HddMapper {
 
   Hdd toEntity(HddDTO hddDTO);
 
-  HddDTO toDTO(Hdd hdd);
+  HddFullDTO toDTO(Hdd hdd);
 
   void updateHddFromDto(HddDTO hddDTO, @MappingTarget Hdd hdd);
 
-  Collection<HddDTO> toDTOList(Collection<Hdd> list);
+  Collection<HddFullDTO> toDTOList(Collection<Hdd> list);
 
 }

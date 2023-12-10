@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.example.onlineshopcomputerparts.dto.ComputerDTO;
+import com.example.onlineshopcomputerparts.dto.ComputerFullDTO;
 import com.example.onlineshopcomputerparts.entity.Computer;
 import com.example.onlineshopcomputerparts.exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.mapper.ComputerMapper;
@@ -44,13 +45,16 @@ class ComputerServiceTest {
 
   private ComputerDTO dto;
   private Computer computer;
+  private ComputerFullDTO computerFullDTO;
 
   @BeforeEach
   void setUp() {
-    dto = new ComputerDTO(2L, 1111, "Test1", 12601.98,
+    dto = new ComputerDTO(1111, "Test1", 12601.98,
         11, "mini1");
+    computerFullDTO = new ComputerFullDTO(2L, 1111, "Test1", 12601.98,
+            11, "mini1");
     computer = new Computer();
-    computer.setId(dto.getId());
+    computer.setId(2L);
     computer.setPrice(dto.getPrice());
     computer.setManufacturer(dto.getManufacturer());
     computer.setForm(dto.getForm());
@@ -62,6 +66,7 @@ class ComputerServiceTest {
   void clearTestData() {
     dto = null;
     computer = null;
+    computerFullDTO = null;
   }
 
   @Test
@@ -70,9 +75,10 @@ class ComputerServiceTest {
     ComputerMapper mapper = mock(ComputerMapper.class);
 
     when(mapper.toEntity(dto)).thenReturn(computer);
-    when(service.add(dto)).thenReturn(dto);
-    when(repository.save(any(Computer.class))).thenReturn(computer);
-    assertThat(service.add(dto)).isNotNull().isEqualTo(dto).isExactlyInstanceOf(ComputerDTO.class);
+    when(service.add(dto)).thenReturn(computerFullDTO);
+    when(repository.save(computer)).thenReturn(computer);
+
+    assertThat(service.add(dto)).isNotNull().isExactlyInstanceOf(ComputerFullDTO.class);
     assertThat(mapper.toEntity(dto)).isNotNull().isEqualTo(computer)
         .isExactlyInstanceOf(Computer.class);
     assertThat(repository.save(computer)).isNotNull().isExactlyInstanceOf(Computer.class);
@@ -103,33 +109,28 @@ class ComputerServiceTest {
   void patchPositiveTest() {
     ComputerServiceImpl service = mock(ComputerServiceImpl.class);
     ComputerMapper mapper = mock(ComputerMapper.class);
+
     when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(computer));
-    when(mapper.toDTO(computer)).thenReturn(dto);
+    when(mapper.toDTO(computer)).thenReturn(computerFullDTO);
     doNothing().when(mapper).updateComputerFromDto(dto, computer);
     when(repository.save(any(Computer.class))).thenReturn(computer);
-    when(service.patch(dto.getId(), dto.getForm(), dto.getSerialNumber(), dto.getManufacturer(),
-        dto.getPrice(), dto.getQuantity())).thenReturn(dto);
+    when(service.patch(2L, dto)).thenReturn(computerFullDTO);
 
     assertThat(repository.findById(anyLong())).isNotNull();
-    assertThat(mapper.toDTO(computer)).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(ComputerDTO.class);
+    assertThat(mapper.toDTO(computer)).isNotNull().isExactlyInstanceOf(ComputerFullDTO.class);
     assertDoesNotThrow(
         () -> mapper.updateComputerFromDto(dto, computer));
     assertThat(repository.save(computer)).isNotNull().isExactlyInstanceOf(Computer.class);
 
     assertThat(
-        service.patch(dto.getId(), dto.getForm(), dto.getSerialNumber(), dto.getManufacturer(),
-            dto.getPrice(), dto.getQuantity())).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(ComputerDTO.class);
+        service.patch(2L, dto)).isNotNull().isEqualTo(computerFullDTO)
+        .isExactlyInstanceOf(ComputerFullDTO.class);
 
     verify(repository, times(1)).save(computer);
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any(Computer.class));
     verify(mapper, times(1)).updateComputerFromDto(any(ComputerDTO.class), any(Computer.class));
-
-    verify(service, times(1)).patch(anyLong(), anyString(), anyInt(),
-        anyString(), anyDouble(), anyInt());
-
+    verify(service, times(1)).patch(2L, dto);
   }
 
   @Test
@@ -141,23 +142,20 @@ class ComputerServiceTest {
     when(mapper.toDTO(any())).thenThrow(NullPointerException.class);
     doThrow(NullPointerException.class).when(mapper).updateComputerFromDto(any(), any());
     when(repository.save(any())).thenThrow(RuntimeException.class);
-    when(service.patch(dto.getId(), dto.getForm(), dto.getSerialNumber(), dto.getManufacturer(),
-        dto.getPrice(), dto.getQuantity())).thenThrow(RuntimeException.class);
+    when(service.patch(2L, dto)).thenThrow(RuntimeException.class);
     assertThrows(ElemNotFound.class, () -> repository.findById(anyLong()));
     assertThrows(NullPointerException.class, () -> mapper.toDTO(any()));
     assertThrows(NullPointerException.class, () -> mapper.updateComputerFromDto(any(), any()));
     assertThrows(RuntimeException.class, () -> repository.save(any()));
     assertThatExceptionOfType(RuntimeException.class).isThrownBy(
-        () -> service.patch(dto.getId(), dto.getForm(), dto.getSerialNumber(),
-            dto.getManufacturer(), dto.getPrice(), dto.getQuantity()));
+        () -> service.patch(2L, dto));
 
     verify(repository, times(1)).save(any());
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any());
     verify(mapper, times(1)).updateComputerFromDto(any(), any());
 
-    verify(service, times(1)).patch(anyLong(), anyString(), anyInt(), anyString(), anyDouble(),
-        anyInt());
+    verify(service, times(1)).patch(2L, dto);
 
   }
 
@@ -167,12 +165,12 @@ class ComputerServiceTest {
     ComputerMapper mapper = mock(ComputerMapper.class);
 
     when(repository.findAll()).thenReturn(List.of(computer));
-    when(mapper.toDTOList(List.of(computer))).thenReturn(List.of(dto));
-    when(service.findAll()).thenReturn(List.of(dto));
+    when(mapper.toDTOList(List.of(computer))).thenReturn(List.of(computerFullDTO));
+    when(service.findAll()).thenReturn(List.of(computerFullDTO));
 
     assertThat(repository.findAll()).isNotNull().isEqualTo(List.of(computer));
-    assertThat(mapper.toDTOList(List.of(computer))).isNotNull().isEqualTo(List.of(dto));
-    assertThat(service.findAll()).isNotNull().isEqualTo(List.of(dto));
+    assertThat(mapper.toDTOList(List.of(computer))).isNotNull().isEqualTo(List.of(computerFullDTO));
+    assertThat(service.findAll()).isNotNull().isEqualTo(List.of(computerFullDTO));
 
     verify(repository, times(1)).findAll();
     verify(service, times(1)).findAll();
@@ -199,14 +197,14 @@ class ComputerServiceTest {
     ComputerMapper mapper = mock(ComputerMapper.class);
 
     when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(computer));
-    when(mapper.toDTO(computer)).thenReturn(dto);
-    when(service.findById(anyLong())).thenReturn(dto);
+    when(mapper.toDTO(computer)).thenReturn(computerFullDTO);
+    when(service.findById(anyLong())).thenReturn(computerFullDTO);
 
     assertThat(repository.findById(anyLong())).isNotNull();
-    assertThat(mapper.toDTO(computer)).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(ComputerDTO.class);
-    assertThat(service.findById(anyLong())).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(ComputerDTO.class);
+    assertThat(mapper.toDTO(computer)).isNotNull().isEqualTo(computerFullDTO)
+        .isExactlyInstanceOf(ComputerFullDTO.class);
+    assertThat(service.findById(anyLong())).isNotNull().isEqualTo(computerFullDTO)
+        .isExactlyInstanceOf(ComputerFullDTO.class);
 
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any(Computer.class));

@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.service.impl;
 
 import com.example.onlineshopcomputerparts.dto.LaptopDTO;
+import com.example.onlineshopcomputerparts.dto.LaptopFullDTO;
 import com.example.onlineshopcomputerparts.entity.Laptop;
 import com.example.onlineshopcomputerparts.exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.logger.FormLogInfo;
@@ -23,33 +24,31 @@ public class LaptopServiceImpl implements LaptopService {
   private final LaptopMapper laptopMapper;
 
   @Override
-  public LaptopDTO add(LaptopDTO laptopDTO) {
+  public LaptopFullDTO add(LaptopDTO laptopDTO) {
     log.info(FormLogInfo.getInfo());
-    laptopRepository.save(laptopMapper.toEntity(laptopDTO));
-    return laptopDTO;
-  }
-
-  @Override
-  public LaptopDTO patch(Long id, Integer diagonal, Integer serialNumber, String manufacturer,
-      Double price, Integer quantity) {
-    log.info(FormLogInfo.getInfo());
-    LaptopDTO laptopDTO = new LaptopDTO(id, serialNumber, manufacturer, price, quantity, diagonal);
-    Laptop laptop = laptopRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
-    laptopMapper.updateLaptopFromDto(laptopDTO, laptop);
-    laptopRepository.save(laptop);
+    Laptop laptop = laptopRepository.save(laptopMapper.toEntity(laptopDTO));
     return laptopMapper.toDTO(laptop);
   }
 
   @Override
-  public Collection<LaptopDTO> findAll() {
+  public LaptopFullDTO patch(Long id, LaptopDTO laptopDTO) {
+    log.info(FormLogInfo.getInfo());
+    Laptop laptop = laptopRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
+    laptopMapper.updateLaptopFromDto(laptopDTO, laptop);
+    Laptop updLaptop = laptopRepository.save(laptop);
+    return laptopMapper.toDTO(updLaptop);
+  }
+
+  @Override
+  public Collection<LaptopFullDTO> findAll() {
     log.info(FormLogInfo.getInfo());
     Collection<Laptop> collection = laptopRepository.findAll();
     return new ArrayList<>(laptopMapper.toDTOList(collection));
   }
 
   @Override
-  public LaptopDTO findById(Long id) {
+  public LaptopFullDTO findById(Long id) {
     log.info(FormLogInfo.getInfo());
     Laptop laptop = laptopRepository.findById(id)
         .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));

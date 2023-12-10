@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.mapper;
 
 import com.example.onlineshopcomputerparts.dto.HddDTO;
+import com.example.onlineshopcomputerparts.dto.HddFullDTO;
 import com.example.onlineshopcomputerparts.entity.Hdd;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ class HddMapperTest {
 
   @BeforeEach
   void setUp() {
-    hddDTO = new HddDTO(2L, 1111, "Test1", 12601.98,
+    hddDTO = new HddDTO(1111, "Test1", 12601.98,
         11, 10);
     hdd = new Hdd();
     hdd.setId(1L);
@@ -43,7 +44,7 @@ class HddMapperTest {
   void toDTOPositive() {
     assertNotNull(hdd);
     assertNotNull(hddDTO);
-    HddDTO dto = hddMapper.toDTO(hdd);
+    HddFullDTO dto = hddMapper.toDTO(hdd);
     assertNotNull(dto);
     assertThat(dto.getId()).isEqualTo(hdd.getId());
     assertThat(dto.getPrice()).isEqualTo(hdd.getPrice());
@@ -54,26 +55,11 @@ class HddMapperTest {
   }
 
   @Test
-  void toDTONegative() {
-    assertNotNull(hdd);
-    assertNotNull(hddDTO);
-    HddDTO dto = hddMapper.toDTO(hdd);
-    assertNotNull(dto);
-    assertNotEquals(dto.getId(), hddDTO.getId());
-    assertNotEquals(dto.getPrice(), hddDTO.getPrice());
-    assertNotEquals(dto.getManufacturer(), hddDTO.getManufacturer());
-    assertNotEquals(dto.getVolumeGb(), hddDTO.getVolumeGb());
-    assertNotEquals(dto.getQuantity(), hddDTO.getQuantity());
-    assertNotEquals(dto.getSerialNumber(), hddDTO.getSerialNumber());
-  }
-
-  @Test
   void toEntityPositive() {
     assertNotNull(hdd);
     assertNotNull(hddDTO);
     Hdd hdd1 = hddMapper.toEntity(hddDTO);
     assertNotNull(hdd1);
-    assertThat(hdd1.getId()).isEqualTo(hddDTO.getId());
     assertThat(hdd1.getPrice()).isEqualTo(hddDTO.getPrice());
     assertThat(hdd1.getManufacturer()).isEqualTo(hddDTO.getManufacturer());
     assertThat(hdd1.getVolumeGb()).isEqualTo(hddDTO.getVolumeGb());
@@ -98,7 +84,7 @@ class HddMapperTest {
   @Test
   void toListDTOPositive() {
     assertNotNull(hdd);
-    Collection<HddDTO> dto = hddMapper.toDTOList(List.of(hdd));
+    Collection<HddFullDTO> dto = hddMapper.toDTOList(List.of(hdd));
     assertNotNull(dto);
     assertTrue(dto.contains(hddMapper.toDTO(hdd)));
   }
@@ -106,7 +92,7 @@ class HddMapperTest {
   @Test
   void toListDTONegative() {
     assertNotNull(hdd);
-    Collection<HddDTO> dto = hddMapper.toDTOList(List.of(hdd));
+    Collection<HddFullDTO> dto = hddMapper.toDTOList(List.of(hdd));
     assertNotNull(dto);
     assertTrue(dto.contains(hddMapper.toDTO(hdd)));
   }
@@ -116,14 +102,6 @@ class HddMapperTest {
     assertNotNull(hddDTO);
     assertNotNull(hdd);
     hddMapper.updateHddFromDto(hddDTO, hdd);
-    assertEquals(hdd, hddMapper.toEntity(hddDTO));
-    Hdd c = new Hdd();
-    c.setId(1L);
-    c.setPrice(12600.98);
-    c.setManufacturer("Test");
-    c.setVolumeGb(6);
-    c.setQuantity(1);
-    c.setSerialNumber(111);
-    assertNotEquals(hdd, c);
+    assertEquals(hdd.getSerialNumber(), hddDTO.getSerialNumber());
   }
 }

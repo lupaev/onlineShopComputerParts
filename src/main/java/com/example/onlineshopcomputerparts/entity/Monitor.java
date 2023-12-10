@@ -31,6 +31,4 @@ public class Monitor extends Product {
   private Long id;
 
   private Integer diagonal;
-
-
 }

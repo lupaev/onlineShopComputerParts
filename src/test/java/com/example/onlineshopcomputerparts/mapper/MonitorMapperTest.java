@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.mapper;
 
 import com.example.onlineshopcomputerparts.dto.MonitorDTO;
+import com.example.onlineshopcomputerparts.dto.MonitorFullDTO;
 import com.example.onlineshopcomputerparts.entity.Monitor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ class MonitorMapperTest {
 
   @BeforeEach
   void setUp() {
-    monitorDTO = new MonitorDTO(2L, 1111, "Test1", 12601.98,
+    monitorDTO = new MonitorDTO(1111, "Test1", 12601.98,
         11, 17);
     monitor= new Monitor();
     monitor.setId(1L);
@@ -43,7 +44,7 @@ class MonitorMapperTest {
   void toDTOPositive() {
     assertNotNull(monitor);
     assertNotNull(monitorDTO);
-    MonitorDTO dto = monitorMapper.toDTO(monitor);
+    MonitorFullDTO dto = monitorMapper.toDTO(monitor);
     assertNotNull(dto);
     assertThat(dto.getId()).isEqualTo(monitor.getId());
     assertThat(dto.getPrice()).isEqualTo(monitor.getPrice());
@@ -54,51 +55,9 @@ class MonitorMapperTest {
   }
 
   @Test
-  void toDTONegative() {
-    assertNotNull(monitor);
-    assertNotNull(monitorDTO);
-    MonitorDTO dto = monitorMapper.toDTO(monitor);
-    assertNotNull(dto);
-    assertNotEquals(dto.getId(), monitorDTO.getId());
-    assertNotEquals(dto.getPrice(), monitorDTO.getPrice());
-    assertNotEquals(dto.getManufacturer(), monitorDTO.getManufacturer());
-    assertNotEquals(dto.getDiagonal(), monitorDTO.getDiagonal());
-    assertNotEquals(dto.getQuantity(), monitorDTO.getQuantity());
-    assertNotEquals(dto.getSerialNumber(), monitorDTO.getSerialNumber());
-  }
-
-  @Test
-  void toEntityPositive() {
-    assertNotNull(monitor);
-    assertNotNull(monitorDTO);
-    Monitor l = monitorMapper.toEntity(monitorDTO);
-    assertNotNull(l);
-    assertThat(l.getId()).isEqualTo(monitorDTO.getId());
-    assertThat(l.getPrice()).isEqualTo(monitorDTO.getPrice());
-    assertThat(l.getManufacturer()).isEqualTo(monitorDTO.getManufacturer());
-    assertThat(l.getDiagonal()).isEqualTo(monitorDTO.getDiagonal());
-    assertThat(l.getQuantity()).isEqualTo(monitorDTO.getQuantity());
-    assertThat(l.getSerialNumber()).isEqualTo(monitorDTO.getSerialNumber());
-  }
-
-  @Test
-  void toEntityNegative() {
-    assertNotNull(monitor);
-    assertNotNull(monitorDTO);
-    Monitor l = monitorMapper.toEntity(monitorDTO);
-    assertNotNull(l);
-    assertNotEquals(l.getId(), monitor.getId());
-    assertNotEquals(l.getPrice(), monitor.getPrice());
-    assertNotEquals(l.getManufacturer(), monitor.getManufacturer());
-    assertNotEquals(l.getDiagonal(), monitor.getDiagonal());
-    assertNotEquals(l.getQuantity(), monitor.getQuantity());
-    assertNotEquals(l.getSerialNumber(), monitor.getSerialNumber());
-  }
-
-  @Test
   void toListDTOPositive() {
     assertNotNull(monitor);
-    Collection<MonitorDTO> dto = monitorMapper.toDTOList(List.of(monitor));
+    Collection<MonitorFullDTO> dto = monitorMapper.toDTOList(List.of(monitor));
     assertNotNull(dto);
     assertTrue(dto.contains(monitorMapper.toDTO(monitor)));
   }
@@ -106,7 +65,7 @@ class MonitorMapperTest {
   @Test
   void toListDTONegative() {
     assertNotNull(monitor);
-    Collection<MonitorDTO> dto = monitorMapper.toDTOList(List.of(monitor));
+    Collection<MonitorFullDTO> dto = monitorMapper.toDTOList(List.of(monitor));
     assertNotNull(dto);
     assertTrue(dto.contains(monitorMapper.toDTO(monitor)));
   }
@@ -116,14 +75,6 @@ class MonitorMapperTest {
     assertNotNull(monitorDTO);
     assertNotNull(monitor);
     monitorMapper.updateMonitorFromDto(monitorDTO, monitor);
-    assertEquals(monitor, monitorMapper.toEntity(monitorDTO));
-    Monitor c = new Monitor();
-    c.setId(1L);
-    c.setPrice(12600.98);
-    c.setManufacturer("Test");
-    c.setDiagonal(6);
-    c.setQuantity(1);
-    c.setSerialNumber(111);
-    assertNotEquals(monitor, c);
+    assertEquals(monitor.getSerialNumber(), monitorDTO.getSerialNumber());
   }
 }

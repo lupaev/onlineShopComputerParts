@@ -32,6 +32,4 @@ public class Hdd extends Product {
   private Long id;
 
   private Integer volumeGb;
-
-
 }

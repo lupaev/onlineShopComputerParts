@@ -15,7 +15,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.example.onlineshopcomputerparts.dto.LaptopDTO;
 import com.example.onlineshopcomputerparts.dto.MonitorDTO;
+import com.example.onlineshopcomputerparts.dto.MonitorFullDTO;
 import com.example.onlineshopcomputerparts.entity.Monitor;
 import com.example.onlineshopcomputerparts.exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.mapper.MonitorMapper;
@@ -44,18 +46,19 @@ class MonitorServiceTest {
 
   private MonitorDTO dto;
   private Monitor monitor;
+  private MonitorFullDTO monitorFullDTO;
 
   @BeforeEach
   void setUp() {
-    dto = new MonitorDTO(2L, 1111, "Test1", 12601.98,
-        11, 10);
+    dto = new MonitorDTO(1111, "Test1", 12601.98, 11, 10);
+    monitorFullDTO = new MonitorFullDTO(2L, 1111, "Test1", 12601.98, 11, 10);
     monitor = new Monitor();
-    monitor.setId(dto.getId());
-    monitor.setPrice(dto.getPrice());
-    monitor.setManufacturer(dto.getManufacturer());
-    monitor.setDiagonal(dto.getDiagonal());
-    monitor.setQuantity(dto.getQuantity());
-    monitor.setSerialNumber(dto.getSerialNumber());
+    monitor.setId(monitorFullDTO.getId());
+    monitor.setPrice(monitorFullDTO.getPrice());
+    monitor.setManufacturer(monitorFullDTO.getManufacturer());
+    monitor.setDiagonal(monitorFullDTO.getDiagonal());
+    monitor.setQuantity(monitorFullDTO.getQuantity());
+    monitor.setSerialNumber(monitorFullDTO.getSerialNumber());
   }
 
   @AfterEach
@@ -70,9 +73,9 @@ class MonitorServiceTest {
     MonitorMapper mapper = mock(MonitorMapper.class);
 
     when(mapper.toEntity(dto)).thenReturn(monitor);
-    when(service.add(dto)).thenReturn(dto);
+    when(service.add(dto)).thenReturn(monitorFullDTO);
     when(repository.save(any(Monitor.class))).thenReturn(monitor);
-    assertThat(service.add(dto)).isNotNull().isEqualTo(dto).isExactlyInstanceOf(MonitorDTO.class);
+    assertThat(service.add(dto)).isNotNull().isEqualTo(monitorFullDTO).isExactlyInstanceOf(MonitorFullDTO.class);
     assertThat(mapper.toEntity(dto)).isNotNull().isEqualTo(monitor)
         .isExactlyInstanceOf(Monitor.class);
     assertThat(repository.save(monitor)).isNotNull().isExactlyInstanceOf(Monitor.class);
@@ -104,32 +107,27 @@ class MonitorServiceTest {
     MonitorServiceImpl service = mock(MonitorServiceImpl.class);
     MonitorMapper mapper = mock(MonitorMapper.class);
     when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(monitor));
-    when(mapper.toDTO(monitor)).thenReturn(dto);
+    when(mapper.toDTO(monitor)).thenReturn(monitorFullDTO);
     doNothing().when(mapper).updateMonitorFromDto(dto, monitor);
     when(repository.save(any(Monitor.class))).thenReturn(monitor);
-    when(service.patch(anyLong(), anyInt(), anyInt(),
-        anyString(), anyDouble(), anyInt())).thenReturn(dto);
+    when(service.patch(2L, dto)).thenReturn(monitorFullDTO);
 
     assertThat(repository.findById(anyLong())).isNotNull();
-    assertThat(mapper.toDTO(monitor)).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(MonitorDTO.class);
+    assertThat(mapper.toDTO(monitor)).isNotNull().isEqualTo(monitorFullDTO)
+        .isExactlyInstanceOf(MonitorFullDTO.class);
     assertDoesNotThrow(
         () -> mapper.updateMonitorFromDto(dto, monitor));
     assertThat(repository.save(monitor)).isNotNull().isExactlyInstanceOf(Monitor.class);
 
     assertThat(
-        service.patch(anyLong(), anyInt(), anyInt(),
-            anyString(), anyDouble(), anyInt())).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(MonitorDTO.class);
+        service.patch(2L, dto)).isNotNull().isEqualTo(monitorFullDTO)
+        .isExactlyInstanceOf(MonitorFullDTO.class);
 
     verify(repository, times(1)).save(monitor);
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any(Monitor.class));
     verify(mapper, times(1)).updateMonitorFromDto(any(MonitorDTO.class), any(Monitor.class));
-
-    verify(service, times(1)).patch(anyLong(), anyInt(), anyInt(),
-        anyString(), anyDouble(), anyInt());
-
+    verify(service, times(1)).patch(2L, dto);
   }
 
   @Test
@@ -141,23 +139,20 @@ class MonitorServiceTest {
     when(mapper.toDTO(any())).thenThrow(NullPointerException.class);
     doThrow(NullPointerException.class).when(mapper).updateMonitorFromDto(any(), any());
     when(repository.save(any())).thenThrow(RuntimeException.class);
-    when(service.patch(anyLong(), anyInt(), anyInt(),
-        anyString(), anyDouble(), anyInt())).thenThrow(RuntimeException.class);
+    when(service.patch(2L, dto)).thenThrow(RuntimeException.class);
     assertThrows(ElemNotFound.class, () -> repository.findById(anyLong()));
     assertThrows(NullPointerException.class, () -> mapper.toDTO(any()));
     assertThrows(NullPointerException.class, () -> mapper.updateMonitorFromDto(any(), any()));
     assertThrows(RuntimeException.class, () -> repository.save(any()));
     assertThatExceptionOfType(RuntimeException.class).isThrownBy(
-        () -> service.patch(dto.getId(), dto.getDiagonal(), dto.getSerialNumber(),
-            dto.getManufacturer(), dto.getPrice(), dto.getQuantity()));
+        () -> service.patch(2L, dto));
 
     verify(repository, times(1)).save(any());
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any());
     verify(mapper, times(1)).updateMonitorFromDto(any(), any());
 
-    verify(service, times(1)).patch(anyLong(), anyInt(), anyInt(),
-        anyString(), anyDouble(), anyInt());
+    verify(service, times(1)).patch(2L, dto);
 
   }
 
@@ -167,12 +162,12 @@ class MonitorServiceTest {
     MonitorMapper mapper = mock(MonitorMapper.class);
 
     when(repository.findAll()).thenReturn(List.of(monitor));
-    when(mapper.toDTOList(List.of(monitor))).thenReturn(List.of(dto));
-    when(service.findAll()).thenReturn(List.of(dto));
+    when(mapper.toDTOList(List.of(monitor))).thenReturn(List.of(monitorFullDTO));
+    when(service.findAll()).thenReturn(List.of(monitorFullDTO));
 
     assertThat(repository.findAll()).isNotNull().isEqualTo(List.of(monitor));
-    assertThat(mapper.toDTOList(List.of(monitor))).isNotNull().isEqualTo(List.of(dto));
-    assertThat(service.findAll()).isNotNull().isEqualTo(List.of(dto));
+    assertThat(mapper.toDTOList(List.of(monitor))).isNotNull().isEqualTo(List.of(monitorFullDTO));
+    assertThat(service.findAll()).isNotNull().isEqualTo(List.of(monitorFullDTO));
 
     verify(repository, times(1)).findAll();
     verify(service, times(1)).findAll();
@@ -199,14 +194,14 @@ class MonitorServiceTest {
     MonitorMapper mapper = mock(MonitorMapper.class);
 
     when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(monitor));
-    when(mapper.toDTO(monitor)).thenReturn(dto);
-    when(service.findById(anyLong())).thenReturn(dto);
+    when(mapper.toDTO(monitor)).thenReturn(monitorFullDTO);
+    when(service.findById(anyLong())).thenReturn(monitorFullDTO);
 
     assertThat(repository.findById(anyLong())).isNotNull();
-    assertThat(mapper.toDTO(monitor)).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(MonitorDTO.class);
-    assertThat(service.findById(anyLong())).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(MonitorDTO.class);
+    assertThat(mapper.toDTO(monitor)).isNotNull().isEqualTo(monitorFullDTO)
+        .isExactlyInstanceOf(MonitorFullDTO.class);
+    assertThat(service.findById(anyLong())).isNotNull().isEqualTo(monitorFullDTO)
+        .isExactlyInstanceOf(MonitorFullDTO.class);
 
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any(Monitor.class));

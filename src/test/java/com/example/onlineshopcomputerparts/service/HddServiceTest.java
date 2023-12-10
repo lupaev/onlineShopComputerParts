@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.example.onlineshopcomputerparts.dto.HddDTO;
+import com.example.onlineshopcomputerparts.dto.HddFullDTO;
 import com.example.onlineshopcomputerparts.entity.Hdd;
 import com.example.onlineshopcomputerparts.exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.mapper.HddMapper;
@@ -35,7 +36,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class HddServiceTest {
 
-
   @InjectMocks
   private HddServiceImpl service;
   @Mock
@@ -45,24 +45,28 @@ class HddServiceTest {
 
   private HddDTO dto;
   private Hdd hdd;
+  private HddFullDTO hddFullDTO;
 
   @BeforeEach
   void setUp() {
-    dto = new HddDTO(2L, 1111, "Test1", 12601.98,
+    dto = new HddDTO(1111, "Test1", 12601.98,
         11, 10);
+    hddFullDTO = new HddFullDTO(2L, 1111, "Test1", 12601.98,
+            11, 10);
     hdd = new Hdd();
-    hdd.setId(dto.getId());
-    hdd.setPrice(dto.getPrice());
-    hdd.setManufacturer(dto.getManufacturer());
-    hdd.setVolumeGb(dto.getVolumeGb());
-    hdd.setQuantity(dto.getQuantity());
-    hdd.setSerialNumber(dto.getSerialNumber());
+    hdd.setId(hddFullDTO.getId());
+    hdd.setPrice(hddFullDTO.getPrice());
+    hdd.setManufacturer(hddFullDTO.getManufacturer());
+    hdd.setVolumeGb(hddFullDTO.getVolumeGb());
+    hdd.setQuantity(hddFullDTO.getQuantity());
+    hdd.setSerialNumber(hddFullDTO.getSerialNumber());
   }
 
   @AfterEach
   void clearTestData() {
     dto = null;
     hdd = null;
+    hddFullDTO = null;
   }
 
   @Test
@@ -71,9 +75,9 @@ class HddServiceTest {
     HddMapper mapper = mock(HddMapper.class);
 
     when(mapper.toEntity(dto)).thenReturn(hdd);
-    when(service.add(dto)).thenReturn(dto);
+    when(service.add(dto)).thenReturn(hddFullDTO);
     when(repository.save(any(Hdd.class))).thenReturn(hdd);
-    assertThat(service.add(dto)).isNotNull().isEqualTo(dto).isExactlyInstanceOf(HddDTO.class);
+    assertThat(service.add(dto)).isNotNull().isEqualTo(hddFullDTO).isExactlyInstanceOf(HddFullDTO.class);
     assertThat(mapper.toEntity(dto)).isNotNull().isEqualTo(hdd)
         .isExactlyInstanceOf(Hdd.class);
     assertThat(repository.save(hdd)).isNotNull().isExactlyInstanceOf(Hdd.class);
@@ -105,31 +109,28 @@ class HddServiceTest {
     HddServiceImpl service = mock(HddServiceImpl.class);
     HddMapper mapper = mock(HddMapper.class);
     when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(hdd));
-    when(mapper.toDTO(hdd)).thenReturn(dto);
+    when(mapper.toDTO(hdd)).thenReturn(hddFullDTO);
     doNothing().when(mapper).updateHddFromDto(dto, hdd);
     when(repository.save(any(Hdd.class))).thenReturn(hdd);
-    when(service.patch(dto.getId(), dto.getVolumeGb(), dto.getSerialNumber(), dto.getManufacturer(),
-        dto.getPrice(), dto.getQuantity())).thenReturn(dto);
+    when(service.patch(2L, dto)).thenReturn(hddFullDTO);
 
     assertThat(repository.findById(anyLong())).isNotNull();
-    assertThat(mapper.toDTO(hdd)).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(HddDTO.class);
+    assertThat(mapper.toDTO(hdd)).isNotNull().isEqualTo(hddFullDTO)
+        .isExactlyInstanceOf(HddFullDTO.class);
     assertDoesNotThrow(
         () -> mapper.updateHddFromDto(dto, hdd));
     assertThat(repository.save(hdd)).isNotNull().isExactlyInstanceOf(Hdd.class);
 
     assertThat(
-        service.patch(dto.getId(), dto.getVolumeGb(), dto.getSerialNumber(), dto.getManufacturer(),
-            dto.getPrice(), dto.getQuantity())).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(HddDTO.class);
+        service.patch(2L, dto)).isNotNull().isEqualTo(hddFullDTO)
+        .isExactlyInstanceOf(HddFullDTO.class);
 
     verify(repository, times(1)).save(hdd);
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any(Hdd.class));
     verify(mapper, times(1)).updateHddFromDto(any(HddDTO.class), any(Hdd.class));
 
-    verify(service, times(1)).patch(anyLong(), anyInt(), anyInt(),
-        anyString(), anyDouble(), anyInt());
+    verify(service, times(1)).patch(2L, dto);
 
   }
 
@@ -142,23 +143,20 @@ class HddServiceTest {
     when(mapper.toDTO(any())).thenThrow(NullPointerException.class);
     doThrow(NullPointerException.class).when(mapper).updateHddFromDto(any(), any());
     when(repository.save(any())).thenThrow(RuntimeException.class);
-    when(service.patch(dto.getId(), dto.getVolumeGb(), dto.getSerialNumber(), dto.getManufacturer(),
-        dto.getPrice(), dto.getQuantity())).thenThrow(RuntimeException.class);
+    when(service.patch(2L, dto)).thenThrow(RuntimeException.class);
     assertThrows(ElemNotFound.class, () -> repository.findById(anyLong()));
     assertThrows(NullPointerException.class, () -> mapper.toDTO(any()));
     assertThrows(NullPointerException.class, () -> mapper.updateHddFromDto(any(), any()));
     assertThrows(RuntimeException.class, () -> repository.save(any()));
     assertThatExceptionOfType(RuntimeException.class).isThrownBy(
-        () -> service.patch(dto.getId(), dto.getVolumeGb(), dto.getSerialNumber(),
-            dto.getManufacturer(), dto.getPrice(), dto.getQuantity()));
+        () -> service.patch(2L, dto));
 
     verify(repository, times(1)).save(any());
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any());
     verify(mapper, times(1)).updateHddFromDto(any(), any());
 
-    verify(service, times(1)).patch(anyLong(), anyInt(), anyInt(), anyString(), anyDouble(),
-        anyInt());
+    verify(service, times(1)).patch(2L, dto);
 
   }
 
@@ -168,12 +166,12 @@ class HddServiceTest {
     HddMapper mapper = mock(HddMapper.class);
 
     when(repository.findAll()).thenReturn(List.of(hdd));
-    when(mapper.toDTOList(List.of(hdd))).thenReturn(List.of(dto));
-    when(service.findAll()).thenReturn(List.of(dto));
+    when(mapper.toDTOList(List.of(hdd))).thenReturn(List.of(hddFullDTO));
+    when(service.findAll()).thenReturn(List.of(hddFullDTO));
 
     assertThat(repository.findAll()).isNotNull().isEqualTo(List.of(hdd));
-    assertThat(mapper.toDTOList(List.of(hdd))).isNotNull().isEqualTo(List.of(dto));
-    assertThat(service.findAll()).isNotNull().isEqualTo(List.of(dto));
+    assertThat(mapper.toDTOList(List.of(hdd))).isNotNull().isEqualTo(List.of(hddFullDTO));
+    assertThat(service.findAll()).isNotNull().isEqualTo(List.of(hddFullDTO));
 
     verify(repository, times(1)).findAll();
     verify(service, times(1)).findAll();
@@ -200,14 +198,14 @@ class HddServiceTest {
     HddMapper mapper = mock(HddMapper.class);
 
     when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(hdd));
-    when(mapper.toDTO(hdd)).thenReturn(dto);
-    when(service.findById(anyLong())).thenReturn(dto);
+    when(mapper.toDTO(hdd)).thenReturn(hddFullDTO);
+    when(service.findById(anyLong())).thenReturn(hddFullDTO);
 
     assertThat(repository.findById(anyLong())).isNotNull();
-    assertThat(mapper.toDTO(hdd)).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(HddDTO.class);
-    assertThat(service.findById(anyLong())).isNotNull().isEqualTo(dto)
-        .isExactlyInstanceOf(HddDTO.class);
+    assertThat(mapper.toDTO(hdd)).isNotNull().isEqualTo(hddFullDTO)
+        .isExactlyInstanceOf(HddFullDTO.class);
+    assertThat(service.findById(anyLong())).isNotNull().isEqualTo(hddFullDTO)
+        .isExactlyInstanceOf(HddFullDTO.class);
 
     verify(repository, times(1)).findById(anyLong());
     verify(mapper, times(1)).toDTO(any(Hdd.class));

@@ -19,18 +19,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class HddDTO {
-
-  @JsonIgnore
-  Long id;
-
   private Integer serialNumber;
-
   private String manufacturer;
-
   private Double price;
-
   private Integer quantity;
-
   private Integer volumeGb;
-
 }

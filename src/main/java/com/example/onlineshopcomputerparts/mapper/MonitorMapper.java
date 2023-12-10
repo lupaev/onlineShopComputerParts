@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.mapper;
 
 import com.example.onlineshopcomputerparts.dto.MonitorDTO;
+import com.example.onlineshopcomputerparts.dto.MonitorFullDTO;
 import com.example.onlineshopcomputerparts.entity.Monitor;
 import java.util.Collection;
 import org.mapstruct.Mapper;
@@ -15,10 +16,10 @@ public interface MonitorMapper {
 
   Monitor toEntity(MonitorDTO monitorDTO);
 
-  MonitorDTO toDTO(Monitor monitor);
+  MonitorFullDTO toDTO(Monitor monitor);
 
   void updateMonitorFromDto(MonitorDTO monitorDTO, @MappingTarget Monitor monitor);
 
-  Collection<MonitorDTO> toDTOList(Collection<Monitor> list);
+  Collection<MonitorFullDTO> toDTOList(Collection<Monitor> list);
 
 }

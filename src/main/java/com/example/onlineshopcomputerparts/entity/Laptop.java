@@ -31,6 +31,4 @@ public class Laptop extends Product {
   private Long id;
 
   private Integer diagonal;
-
-
 }

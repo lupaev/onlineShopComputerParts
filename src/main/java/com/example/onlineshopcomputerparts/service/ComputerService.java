@@ -1,6 +1,8 @@
 package com.example.onlineshopcomputerparts.service;
 
 import com.example.onlineshopcomputerparts.dto.ComputerDTO;
+import com.example.onlineshopcomputerparts.dto.ComputerFullDTO;
+
 import java.util.Collection;
 
 /**
@@ -12,21 +14,20 @@ public interface ComputerService {
   /**
    * Добавление в магазин Компьютера
    */
-  ComputerDTO add(ComputerDTO computerDTO);
+  ComputerFullDTO add(ComputerDTO computerDTO);
 
   /**
    * Изменение данных Компьютера
    */
-  ComputerDTO patch(Long id, String form, Integer serialNumber, String manufacturer,
-      Double price, Integer quantity);
+  ComputerFullDTO patch(Long id, ComputerDTO computerDTO);
 
   /**
    * Данные о всех Компьютерах в магазине
    */
-  Collection<ComputerDTO> findAll();
+  Collection<ComputerFullDTO> findAll();
 
   /**
    * Поиск Компьютера по идентификатору
    */
-  ComputerDTO findById(Long id);
+  ComputerFullDTO findById(Long id);
 }

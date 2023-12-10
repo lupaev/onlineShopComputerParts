@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.service.impl;
 
 import com.example.onlineshopcomputerparts.dto.MonitorDTO;
+import com.example.onlineshopcomputerparts.dto.MonitorFullDTO;
 import com.example.onlineshopcomputerparts.entity.Monitor;
 import com.example.onlineshopcomputerparts.exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.logger.FormLogInfo;
@@ -24,16 +25,13 @@ public class MonitorServiceImpl implements MonitorService {
 
 
   @Override
-  public MonitorDTO add(MonitorDTO monitorDTO) {
-    monitorRepository.save(monitorMapper.toEntity(monitorDTO));
-    return monitorDTO;
+  public MonitorFullDTO add(MonitorDTO monitorDTO) {
+    Monitor monitor = monitorRepository.save(monitorMapper.toEntity(monitorDTO));
+    return monitorMapper.toDTO(monitor);
   }
 
-  public MonitorDTO patch(Long id, Integer diagonal, Integer serialNumber, String manufacturer,
-      Double price, Integer quantity) {
+  public MonitorFullDTO patch(Long id, MonitorDTO monitorDTO) {
     log.info(FormLogInfo.getInfo());
-    MonitorDTO monitorDTO = new MonitorDTO(id, serialNumber, manufacturer, price, quantity,
-        diagonal);
     Monitor monitor = monitorRepository.findById(id)
         .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
     monitorMapper.updateMonitorFromDto(monitorDTO, monitor);
@@ -42,14 +40,14 @@ public class MonitorServiceImpl implements MonitorService {
   }
 
   @Override
-  public Collection<MonitorDTO> findAll() {
+  public Collection<MonitorFullDTO> findAll() {
     log.info(FormLogInfo.getInfo());
     Collection<Monitor> collection = monitorRepository.findAll();
     return new ArrayList<>(monitorMapper.toDTOList(collection));
   }
 
   @Override
-  public MonitorDTO findById(Long id) {
+  public MonitorFullDTO findById(Long id) {
     log.info(FormLogInfo.getInfo());
     Monitor monitor = monitorRepository.findById(id)
         .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));

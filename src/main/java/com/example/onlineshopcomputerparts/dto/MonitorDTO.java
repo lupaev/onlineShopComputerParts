@@ -21,9 +21,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class MonitorDTO {
 
-  @JsonIgnore
-  Long id;
-
   private Integer serialNumber;
 
   private String manufacturer;

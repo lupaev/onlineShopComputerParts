@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.mapper;
 
 import com.example.onlineshopcomputerparts.dto.LaptopDTO;
+import com.example.onlineshopcomputerparts.dto.LaptopFullDTO;
 import com.example.onlineshopcomputerparts.entity.Laptop;
 import java.util.Collection;
 import org.mapstruct.Mapper;
@@ -16,10 +17,10 @@ public interface LaptopMapper {
 
   Laptop toEntity(LaptopDTO laptopDTO);
 
-  LaptopDTO toDTO(Laptop laptop);
+  LaptopFullDTO toDTO(Laptop laptop);
 
   void updateLaptopFromDto(LaptopDTO laptopDTO, @MappingTarget Laptop laptop);
 
-  Collection<LaptopDTO> toDTOList(Collection<Laptop> list);
+  Collection<LaptopFullDTO> toDTOList(Collection<Laptop> list);
 
 }

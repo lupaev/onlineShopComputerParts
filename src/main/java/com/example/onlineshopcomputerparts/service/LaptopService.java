@@ -1,6 +1,8 @@
 package com.example.onlineshopcomputerparts.service;
 
 import com.example.onlineshopcomputerparts.dto.LaptopDTO;
+import com.example.onlineshopcomputerparts.dto.LaptopFullDTO;
+
 import java.util.Collection;
 
 /**
@@ -12,21 +14,20 @@ public interface LaptopService {
   /**
    * Добавление в магазин Ноутбука
    */
-  LaptopDTO add(LaptopDTO laptopDTO);
+  LaptopFullDTO add(LaptopDTO laptopDTO);
 
   /**
    * Изменение данных Ноутбука
    */
-  LaptopDTO patch(Long id, Integer diagonal, Integer serialNumber, String manufacturer,
-      Double price, Integer quantity);
+  LaptopFullDTO patch(Long id, LaptopDTO laptopDTO);
 
   /**
    * Данные о всех Ноутбуках в магазине
    */
-  Collection<LaptopDTO> findAll();
+  Collection<LaptopFullDTO> findAll();
 
   /**
    * Поиск Ноутбука по идентификатору
    */
-  LaptopDTO findById(Long id);
+  LaptopFullDTO findById(Long id);
 }

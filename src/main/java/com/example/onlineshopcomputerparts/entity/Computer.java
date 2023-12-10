@@ -33,6 +33,4 @@ public class Computer extends Product {
   private Long id;
 
   private String form;
-
-
 }

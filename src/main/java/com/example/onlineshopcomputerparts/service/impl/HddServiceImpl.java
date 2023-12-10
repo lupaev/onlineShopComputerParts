@@ -1,6 +1,7 @@
 package com.example.onlineshopcomputerparts.service.impl;
 
 import com.example.onlineshopcomputerparts.dto.HddDTO;
+import com.example.onlineshopcomputerparts.dto.HddFullDTO;
 import com.example.onlineshopcomputerparts.entity.Hdd;
 import com.example.onlineshopcomputerparts.exception.ElemNotFound;
 import com.example.onlineshopcomputerparts.logger.FormLogInfo;
@@ -23,33 +24,31 @@ public class HddServiceImpl implements HddService {
   private final HddRepository hddRepository;
 
   @Override
-  public HddDTO add(HddDTO hddDTO) {
+  public HddFullDTO add(HddDTO hddDTO) {
     log.info(FormLogInfo.getInfo());
-    hddRepository.save(hddMapper.toEntity(hddDTO));
-    return hddDTO;
-  }
-
-  @Override
-  public HddDTO patch(Long id, Integer volumeGb, Integer serialNumber, String manufacturer,
-      Double price, Integer quantity) {
-    log.info(FormLogInfo.getInfo());
-    HddDTO hddDTO = new HddDTO(id, serialNumber, manufacturer, price, quantity, volumeGb);
-    Hdd hdd = hddRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
-    hddMapper.updateHddFromDto(hddDTO, hdd);
-    hddRepository.save(hdd);
+    Hdd hdd = hddRepository.save(hddMapper.toEntity(hddDTO));
     return hddMapper.toDTO(hdd);
   }
 
   @Override
-  public Collection<HddDTO> findAll() {
+  public HddFullDTO patch(Long id, HddDTO hddDTO) {
+    log.info(FormLogInfo.getInfo());
+    Hdd hdd = hddRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
+    hddMapper.updateHddFromDto(hddDTO, hdd);
+    Hdd updHdd = hddRepository.save(hdd);
+    return hddMapper.toDTO(updHdd);
+  }
+
+  @Override
+  public Collection<HddFullDTO> findAll() {
     log.info(FormLogInfo.getInfo());
     Collection<Hdd> collection = hddRepository.findAll();
     return new ArrayList<>(hddMapper.toDTOList(collection));
   }
 
   @Override
-  public HddDTO findById(Long id) {
+  public HddFullDTO findById(Long id) {
     log.info(FormLogInfo.getInfo());
     Hdd hdd = hddRepository.findById(id)
         .orElseThrow(() -> new ElemNotFound("Product not found on :: " + id));
